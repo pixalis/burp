@@ -1,0 +1,117 @@
+
+
+//
+// Global Required Styles
+//
+*
+	box-sizing border-box
+
+//
+// Helper function that returns the percentage of two values
+//
+percentage(n, c)
+	((n / c) * 100) %
+
+//
+// Mixin that outputs the desired with of column as percentage
+// =============================================================================
+// - eg. 2 of 5 columns = 40%
+// @param col Required number of columns
+// @param context Max number of columns in a row
+//
+make-col(col, context)
+	width percentage(col, context)
+
+//
+// Mixin that pushes column using a positive margin
+// =============================================================================
+// @param col Required number of columns
+// @param context Max number of columns in a row
+//
+col-push(col, context)
+	margin-left percentage(col, context)
+
+//
+// Mixin that pulls column using a negative margin
+// =============================================================================
+// @param col Required number of columns
+// @param context Max number of columns in a row
+//
+col-pull(col, context)
+	margin-left 0% - (percentage(col, context))
+
+//
+// Generate a complete grid system
+// =============================================================================
+// !!! Column divs MUST be 1st gen children of parent due to use of decendent (>)
+// selector. This is to vastly reduce filesize and speed up render times !!!
+// - eg
+// 			.row-10
+//				grid-columns(10, 30, large)
+//
+// - Usage
+// 			div.row-10
+// 				div.col-3-large
+//				div.col-7-large
+// @param col Required number of columns per row
+// @param gutter Gutter between columns (must be 'px')
+// @param [postfix] Optional class postfix
+//
+grid-columns(cols, gutter, postfix = null)
+	margin-left 0 - (gutter) px
+	margin-right 0 -(gutter) px
+	clearfix()
+
+	if postfix not null
+		for i in (1..cols)
+			&  >  .col-{postfix}-{i}
+				make-col(i, cols)
+	else
+		for i in (1..cols)
+			& > .col-{i}
+				make-col(i, cols)
+
+	& > *[class*="col-"]
+		float left
+		padding 0 (gutter)px
+
+//
+// Generate push ~and~ pull classes
+// =============================================================================
+// @param col Required number of columns per row
+// @param [postfix] Optional class postfix
+grid-shift(cols, postfix = null)
+	if postfix not null
+		for i in (1..cols)
+			& >  .col-{postfix}-push-{i}
+				col-push(i, cols)
+			&> .col-{postfix}-pull-{i}
+				col-pull(i, cols)
+	else
+		for i in (1..cols)
+			& > .col-push-{i}
+				col-push(i, cols)
+			& > .col-pull-{i}
+				col-pull(i, cols)
+
+//
+// Allow for gutters to be adjusted as required (for example in breakpoints)
+// =============================================================================
+grid-adjust-gutter( gutter)
+	margin-left 0 - (gutter) px
+	margin-right 0 -(gutter) px
+	& > *[class*="col-"]
+		padding 0 (gutter)px
+
+
+//
+// Shamelessly stolen from jeet
+// https://github.com/mojotech/jeet/blob/master/stylus/jeet/_grid.styl
+//
+debug(color = black, important = false)
+	if important
+		*
+			background: rgba(color, 5%) !important
+	else
+		*
+			background: rgba(color, 5%)
