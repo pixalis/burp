@@ -1,20 +1,23 @@
 var gulp = require('gulp'),
-	amd = require('amd-optimize'),
-	concat = require('gulp-concat'),
-	uglify = require('gulp-uglify'),
-	jshint = require('gulp-jshint'),
-	stylish = require('jshint-stylish'),
-	jade = require('gulp-jade'),
-	stylus = require('gulp-stylus'),
-	nib = require('nib'),
-	imagemin = require('gulp-imagemin'),
-	browserSync = require('browser-sync'),
+    jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    jade = require('gulp-jade'),
+    stylus = require('gulp-stylus'),
+    nib = require('nib'),
+    jeet = require('jeet'),
+    rupture = require('rupture'),
+    imagemin = require('gulp-imagemin'),
+    browserSync = require('browser-sync'),
     plumber = require('gulp-plumber'),
-    please = require('gulp-pleeease'),
-	path = {},
-	dev;
+    pleeease = require('gulp-pleeease'),
+    sourcemaps = require('gulp-sourcemaps'),
+    csscomb = require('gulp-csscomb'),
+    concat = require('gulp-concat'),
+    path = {},
+    dev;
 
 var jsPlugins = [
+    'src/js/plugins/jquery.hoverIntent.js'
 ];
 
 function setPaths () {

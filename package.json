@@ -29,10 +29,12 @@
     "nib": "^1.0.4"
   },
   "devDependencies": {
-      "gulp-concat": "^2.4.1",
-      "gulp-csscomb": "^3.0.2",
-      "gulp-pleeease": "^1.0.4",
-      "gulp-plumber": "^0.6.5",
-      "gulp-sourcemaps": "^1.2.2"
+    "gulp-concat": "^2.4.1",
+    "gulp-csscomb": "^3.0.2",
+    "gulp-pleeease": "^1.0.4",
+    "gulp-plumber": "^0.6.5",
+    "gulp-sourcemaps": "^1.2.2",
+    "jeet": "^6.1.2",
+    "rupture": "^0.4.0"
   }
 }
